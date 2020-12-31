@@ -230,11 +230,22 @@
 			<version>1.4.2</version>
 		</dependency>
 
-		<dependency>
+<!--		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xerces</artifactId>
 			<version>2.4.0</version>
-		</dependency>
+        </dependency>     -->
+        
+<!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
+<dependency>
+    <groupId>xerces</groupId>
+    <artifactId>xercesImpl</artifactId>
+    <version>2.12.0</version>
+</dependency>
+        
+        
+        
+        
 
 		<dependency>
 			<groupId>com.jgoodies</groupId>
@@ -321,6 +332,13 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.11</version>
+</dependency>
+
 
 		<dependency>
 			<groupId>commons-configuration</groupId>
@@ -365,7 +383,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.30</version>
+			<version>8.0.22</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
