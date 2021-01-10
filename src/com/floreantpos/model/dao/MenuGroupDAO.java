@@ -101,7 +101,8 @@ public class MenuGroupDAO extends BaseMenuGroupDAO {
 			criteria.createAlias("orderTypeList", "type", CriteriaSpecification.LEFT_JOIN);
 			criteria.add(Restrictions.or(Restrictions.isEmpty("orderTypeList"), Restrictions.eq("type.id", orderType.getId())));
 
-			int uniqueResult = (Integer) criteria.uniqueResult();
+//			int uniqueResult = (Integer) criteria.uniqueResult();
+			Long uniqueResult = (Long) criteria.uniqueResult();
 
 			return uniqueResult > 0;
 		} catch (Exception e) {

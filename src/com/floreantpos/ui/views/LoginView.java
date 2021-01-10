@@ -53,6 +53,7 @@ import com.floreantpos.main.Application;
 import com.floreantpos.model.User;
 import com.floreantpos.swing.MessageDialog;
 import com.floreantpos.swing.OrderTypeLoginButton;
+import com.floreantpos.swing.PosBlinkButton;
 import com.floreantpos.swing.PosButton;
 import com.floreantpos.swing.PosUIManager;
 import com.floreantpos.ui.dialog.POSMessageDialog;
@@ -202,7 +203,16 @@ public class LoginView extends ViewPanel {
 			++buttonCount;
 		}
 
-		if (buttonCount > 3) {
+		if (buttonCount > 3) 
+		{
+            // get mod 3 ++buttonCount;
+            int iMod = buttonCount % 3;
+            // add mod ++buttonCount blank buttons
+            if (iMod > 0)
+            panel2.add(new PosBlinkButton(), "grow"); //$NON-NLS-1$
+            if (iMod == 1)
+            panel2.add(new PosBlinkButton(), "grow"); //$NON-NLS-1$
+            // now add panel2
 			centerPanel.add(panel2, "cell 0 1, wrap,w " + width + "px, h " + height + "px, grow");
 		}
 		btnSwitchBoard.setVisible(true);

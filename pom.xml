@@ -190,11 +190,11 @@
 	</build>
 
 	<dependencies>    
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
-            <version>3.2.6.ga</version> 
-			<exclusions>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>3.6.10.Final</version>     <!--  new  -->
+    			<exclusions>
 				<exclusion>
 					<groupId>javax.transaction</groupId>
 					<artifactId>jta</artifactId>
@@ -204,20 +204,18 @@
 					<groupId>commons-collections</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-            
+        </dependency>
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
-			<version>1.1</version>
+            <version>1.1</version>           <!--  no change  -->
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>3.3.1.GA</version>
-		</dependency>
-
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.5.6-Final</version>   <!--  3.3.1.GA  -->
+        </dependency>
 		<dependency>
 			<groupId>com.miglayout</groupId>
 			<artifactId>miglayout</artifactId>
@@ -242,12 +240,11 @@
             <version>1.2.1</version>         <!-- no change  -->
 		</dependency>
 
-		<dependency>
-			<groupId>org.swinglabs</groupId>
-			<artifactId>swingx-core</artifactId>
-			<version>1.6.2-2</version>
-		</dependency>
-
+        <dependency>
+            <groupId>org.swinglabs.swingx</groupId>
+            <artifactId>swingx-core</artifactId>
+            <version>1.6.4</version>        <!--  new  -->
+        </dependency>
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
@@ -314,7 +311,7 @@
 		<dependency>
 			<groupId>org.swinglabs</groupId>
 			<artifactId>swing-layout</artifactId>
-			<version>1.0.3</version>
+            <version>1.0.3</version>         <!--  no change  -->
 		</dependency>
 
 		<dependency>
@@ -402,7 +399,7 @@
 		<dependency>
 			<groupId>net.authorize</groupId>
 			<artifactId>anet-java-sdk</artifactId>
-			<version>2.0.2</version>         <!--  1.8.1  -->
+			<version>1.9.9</version>         <!--  1.8.1  -->
 		</dependency>
 
 		<dependency>
@@ -430,13 +427,13 @@
 		<dependency>
 			<groupId>javax.json</groupId>
 			<artifactId>javax.json-api</artifactId>
-			<version>1.0</version>
+            <version>1.1.4</version>           <!--  1.0  -->
 		</dependency>
 
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.json</artifactId>
-			<version>1.0.4</version>
+			<version>1.1.4</version>         <!--  1.0.4  -->
 		</dependency>
 		<dependency>
 			<groupId>net.sourceforge.barbecue</groupId>
@@ -447,7 +444,7 @@
 		<dependency>
 			<groupId>us.fatehi</groupId>
 			<artifactId>magnetictrackparser</artifactId>
-			<version>2.01.02</version>           <!-- 1.0 -->
+			<version>1.9</version>           <!--  1.0  -->
 		</dependency>
 
 		<dependency>
@@ -498,30 +495,54 @@
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
 			<artifactId>jna</artifactId>
-			<version>4.2.2</version>
+            <version>5.5.0</version>         <!--  4.2.2  -->
 		</dependency>
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
 			<artifactId>jna-platform</artifactId>
-			<version>4.2.2</version>
+            <version>5.0.0</version>         <!--  4.2.2  -->
 		</dependency>
+
 		<dependency>
 			<groupId>com.floreantpos</groupId>
 			<artifactId>ploader</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-        <dependency> 
-            <groupId>javax.xml.bind</groupId> 
-            <artifactId>jaxb-api</artifactId> 
-            <version>2.1</version>              <!--  new  -->
-        </dependency>         
+
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0.1</version>          <!--  new  -->
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>            <!--  new  -->
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.1</version>            <!--  new  -->
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.25.0-GA</version>        <!--  new  -->
+        </dependency>
+
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.1</version>             <!--  new  -->
+        </dependency>
+
 	</dependencies>
 
 	<repositories>
 	  <repository>
  		<id>orodev.net</id>
-   <!--	     			<url>http://orodev.net:8081/nexus/content/groups/public/</url>      --> 
-            <url>https://mvnrepository.com/artifact/</url>      
+     <!--				<url>http://orodev.net:8081/nexus/content/groups/public/</url>    -->
+               <url>https://mvnrepository.com/artifact/</url>         
 			<releases>
 				<enabled>true</enabled>
 			</releases>
