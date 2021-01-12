@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.floreantpos</groupId>
 	<artifactId>floreantpos</artifactId>
-	<version>1.4-SNAPSHOT</version>
+	<version>1.4.1-SNAPSHOT</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -233,12 +233,12 @@
 			<artifactId>xercesImpl</artifactId>
 			<version>2.12.0</version>        <!--  2.4.0  -->
 		</dependency>
-        
-		<dependency>
-			<groupId>com.jgoodies</groupId>
-			<artifactId>forms</artifactId>
-            <version>1.2.1</version>         <!-- no change  -->
-		</dependency>
+
+        <dependency>
+            <groupId>com.jgoodies</groupId>
+            <artifactId>jgoodies-forms</artifactId>
+            <version>1.9.0</version>        <!--  new  -->
+        </dependency>
 
         <dependency>
             <groupId>org.swinglabs.swingx</groupId>
@@ -269,11 +269,11 @@
             <version>1.19.4</version>        <!--  1.18.1  -->
 		</dependency>
 
-		<dependency>
-			<groupId>com.jgoodies</groupId>
-			<artifactId>looks</artifactId>
-            <version>2.2.2</version>         <!-- no change  -->
-		</dependency>
+        <dependency>
+            <groupId>com.jgoodies</groupId>
+            <artifactId>jgoodies-looks</artifactId>
+            <version>2.7.0</version>            <!--  new  -->
+        </dependency>
 
 		<dependency>
 			<groupId>com.intellij</groupId>
@@ -281,10 +281,10 @@
 			<version>7.0.3</version>         <!-- no change  -->
 		</dependency>
 
-		<dependency>
+  		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-            <version>4.0.1</version>    
+            <version>4.0.2</version>         <!--  4.0.1  --> 
 			<exclusions>
 				<exclusion>
 					<artifactId>itext</artifactId>
@@ -340,7 +340,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -485,7 +484,7 @@
 		<dependency>
 			<groupId>com.pax</groupId>
 			<artifactId>poslink</artifactId>
-			<version>20161230</version>
+			<version>20161230</version>      <!-- no change  -->
 		</dependency>
 		<dependency>
 			<groupId>com.google.maps</groupId>
@@ -506,7 +505,7 @@
 		<dependency>
 			<groupId>com.floreantpos</groupId>
 			<artifactId>ploader</artifactId>
-			<version>1.1.2</version>
+			<version>1.1.2</version>         <!-- no change  -->
 		</dependency>
 
         <dependency>
@@ -535,7 +534,11 @@
             <artifactId>xalan</artifactId>
             <version>2.7.1</version>             <!--  new  -->
         </dependency>
-
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>             <!--  new  -->
+        </dependency>
 	</dependencies>
 
 	<repositories>
