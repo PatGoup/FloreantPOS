@@ -24,8 +24,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 // import sun.misc.BASE64Decoder;
 // import sun.misc.BASE64Encoder;
-
-import com.floreantpos.PosLog;
+import java.util.Base64;
 
 public class AESencrp {
 
@@ -43,7 +42,10 @@ public class AESencrp {
 		String encryptedValue = new BASE64Encoder().encode(encVal);
 		return encryptedValue;
 		****************************/
-		return Data;
+
+        String encodedString = Base64.getEncoder().encodeToString(Data.getBytes());
+		
+		return encodedString;
 	}
 
 	public static String decrypt(String encryptedData) throws Exception {
@@ -56,7 +58,10 @@ public class AESencrp {
 		String decryptedValue = new String(decValue);
 		return decryptedValue;
 		*******************************/
-		return encryptedData;
+		
+		byte[] decodedBytes = Base64.getDecoder().decode(encryptedData);
+        String decodedString = new String(decodedBytes);
+		return decodedString;
 	}
 
 	private static Key generateKey() throws Exception {
@@ -65,12 +70,12 @@ public class AESencrp {
 	}
 	
 	public static void main(String[] args) throws Exception {
-//		String s = "12458";
-//		String encrypt = encrypt(s);
-//		PosLog.debug(getClass(),encrypt);
-		
-		String decrypt = decrypt("4T9H+1LqawVTsVvifd/TxA=="); //$NON-NLS-1$
-		PosLog.info(AESencrp.class, decrypt);
+		String s = "Encode test string on 01/14/2021";
+		String encrypt = encrypt(s);
+		System.out.println (encrypt);
+		System.out.println (" ");
+		String decrypt = decrypt(encrypt); //$NON-NLS-1$
+		System.out.println (decrypt);
 	}
 
 }

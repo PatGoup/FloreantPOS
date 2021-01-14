@@ -4,14 +4,26 @@ This was cloned from sourceforge (https://sourceforge.net/projects/floreantpos/)
 
 Updated all *.jar files to most current release that did not cause any errors.  A few minor source coding changes to fix updated jar errors.
 
-This was tested on / with the following software:
-    linux debian buster 64 bit
+This was tested on / with the following systems / software:
+    linux debian buster 64 bit (my primary system)
     openjdk 11.0.9.1 2020-11-04
     OpenJDK Runtime Environment (build 11.0.9.1+1-post-Debian-1deb10u2)
     OpenJDK 64-Bit Server VM (build 11.0.9.1+1-post-Debian-1deb10u2, mixed mode, sharing)
     Apache Maven 3.6.0
     Database MySQL / MariaDB version 10.3.27 
 
-    Windows 7
+    Minimal testing on windows as I don't normally run windows computers.
     
-    Windows 10
+    Windows 7, 32 bit
+    Oracle java se 8 sdk
+    mysql remote connection to above linux system
+    Run floreantpos-setup.bat file to connect / create database
+    Run / test pos as desired
+    
+    Windows 10, 64 bit
+    jre 8 update 271
+    mysql remote connection to above linux system
+    Run floreantpos-setup.bat file to connect / create database
+    Run / test pos as desired   
+    
+Please let me know if you encounter errors / problems.  I will consider / take change requests but will not guarantee success.
