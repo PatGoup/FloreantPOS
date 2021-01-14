@@ -6,7 +6,7 @@ jars updated:
 
 com.google.maps / google-maps-services   0.1.12  -->  0.15.0
 com.jgoodies / jgoodies-forms   new  -->  1.9.0
-com.jgoodies / jgoodies-looks   new  -->  2.7.0
+com.jgoodies / jgoodies-looks   new  -->  2.5.2
 com.jidesoft / jide-oss   3.6.1  -->  3.6.18
 com.sun.xml.bind / jaxb-core   new  -->  2.3.0.1
 com.sun.xml.bind / jaxb-impl   new  -->  2.3.1
@@ -77,4 +77,4 @@ creates necessary databse schema and populate initial values.
 4. Faster database connection.
 5. Previously, it was not possible to switch database without restarting the application.
 This is now fixed. User can switch database any time from login screen by configuring database.
-1
+
