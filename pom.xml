@@ -534,11 +534,6 @@
             <artifactId>xalan</artifactId>
             <version>2.7.1</version>             <!--  new  -->
         </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.15</version>             <!--  new  -->
-        </dependency>
 	</dependencies>
 
 	<repositories>

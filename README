@@ -1,8 +1,13 @@
-FloreantPOS
+FloreantPOS, a free open source Point of Sale system originally developed by OROCUBE LLC.  They now focus on their proprietary software and have not updated the open source version in a few years.  See their website (http://floreant.org and https://pos.orocube.com) for documentation and other info about floreantpos.  
 
-This was cloned from sourceforge (https://sourceforge.net/projects/floreantpos/) at svn revision / release level 1897.  Then created a git repo.
+This was cloned from sourceforge (https://sourceforge.net/projects/floreantpos/) at svn revision / release level 1897, the last update to the open source software.  A git repo was initialized to facilitate ongoing source code changes.
 
-Updated all *.jar files to most current release that did not cause any errors.  A few minor source coding changes to fix updated jar errors.
+Updated all *.jar files to most current release that did not cause any errors / identifiable problems.  A few minor source coding changes to fix updated jar errors.
+
+Download from www.yooperlinux.com, menu option Downloads
+
+Please let me know if you encounter errors / problems.  I will consider / take change requests but will not guarantee success.  Send email to (remove the blanks)
+    floreant @ yooperlinux . com
 
 This was tested on / with the following systems / software:
     linux debian buster 64 bit (my primary system)
@@ -26,4 +31,4 @@ This was tested on / with the following systems / software:
     Run floreantpos-setup.bat file to connect / create database
     Run / test pos as desired   
     
-Please let me know if you encounter errors / problems.  I will consider / take change requests but will not guarantee success.
+

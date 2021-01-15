@@ -1,9 +1,10 @@
-CHANGES IN VERSION 1.4.1
+CHANGES IN VERSION 1.4.1  (my versioning number update)
 
-Mostly a jars update.  
+Update util/AESencrp.java, replace sun.misc.base64 with java.misc.base64.
 
-jars updated:
+Update *.jar to most current release that does not cause any new errors / problems.  If it is not listed it was not changed or was replaced with a new GroupId / Artifact.
 
+GroupId / Artifact      old level -->  new level
 com.google.maps / google-maps-services   0.1.12  -->  0.15.0
 com.jgoodies / jgoodies-forms   new  -->  1.9.0
 com.jgoodies / jgoodies-looks   new  -->  2.5.2
