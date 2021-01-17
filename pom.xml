@@ -142,7 +142,7 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-								<zip destfile="${project.build.directory}/${project.build.finalName}-1.4-build${buildNumber}.zip" basedir="${project.build.directory}/${project.build.finalName}-bin/${project.build.finalName}"></zip>
+								<zip destfile="${project.build.directory}/${project.build.finalName}-1.4.1-build${buildNumber}.zip" basedir="${project.build.directory}/${project.build.finalName}-bin/${project.build.finalName}"></zip>
 							</target>
 						</configuration>
 						<goals>
@@ -190,7 +190,7 @@
 	</build>
 
 	<dependencies>    
-        <dependency>
+        <dependency>    
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>3.6.10.Final</version>     <!--  new  -->
@@ -340,6 +340,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>runtime</scope>
+        </dependency>
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>

@@ -126,7 +126,8 @@ public class CategoryView extends SelectionView implements ActionListener {
 			fireCategorySelected(null);
 		}
 
-		if (!maintenanceMode && categories.size() <= 1) {
+		if (!maintenanceMode && categories.size() <= 0) // was 1
+		{
 			setVisible(false);
 		}
 		else {
