@@ -223,7 +223,8 @@ public class DefaultCustomerListView extends CustomerSelector {
 
 		btnCancel = new PosButton(Messages.getString("CustomerSelectionDialog.29")); //$NON-NLS-1$
 		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				closeDialog(true);
 			}
 		});
@@ -296,7 +297,7 @@ public class DefaultCustomerListView extends CustomerSelector {
 	private void closeDialog(boolean canceled) {
 		Window windowAncestor = SwingUtilities.getWindowAncestor(DefaultCustomerListView.this);
 		if (windowAncestor instanceof POSDialog) {
-			((POSDialog) windowAncestor).setCanceled(false);
+			((POSDialog) windowAncestor).setCanceled(canceled);
 			windowAncestor.dispose();
 		}
 	}

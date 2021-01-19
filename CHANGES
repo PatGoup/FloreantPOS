@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.4.1  (my versioning number update)
 
+update customer/DefaultCustomerListView.java and ui/views/order/OrderView.java to display info message if no customer selected and press SELECT button when setting customer name on ticket while placing an order.
+
 update ui/views/order/CategoryView.java bug: nothing shows in order view if only 1 ctegory has active menu groups / menu items
 
 Added logback.xml file for slf4j logging.
@@ -12,7 +14,7 @@ GroupId / Artifact      old level -->  new level
 ch.qos.logback / logback-classic   new  -->  1.2.3
 com.google.maps / google-maps-services   0.1.12  -->  0.15.0
 com.jgoodies / jgoodies-forms   new  -->  1.9.0
-com.jgoodies / jgoodies-looks   new  -->  2.5.2
+com.jgoodies / jgoodies-looks   new  -->  2.7.0
 com.jidesoft / jide-oss   3.6.1  -->  3.6.18
 com.sun.xml.bind / jaxb-core   new  -->  2.3.0.1
 com.sun.xml.bind / jaxb-impl   new  -->  2.3.1

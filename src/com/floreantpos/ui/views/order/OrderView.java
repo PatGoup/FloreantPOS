@@ -726,12 +726,20 @@ public class OrderView extends ViewPanel implements PaymentListener, TicketEditL
 		if (currentTicket != null) {
 			dialog.setTicket(currentTicket);
 		}
-		dialog.openUndecoratedFullScreen();
+		
+		try 
+		{
+            dialog.openUndecoratedFullScreen();
 
-		if (!dialog.isCanceled()) {
-			currentTicket.setCustomer(dialog.getSelectedCustomer());
-			btnCustomer.setText("<html><body><center>CUSTOMER<br>\"" + dialog.getSelectedCustomer().getName() + "\"</center></body></html>");
-
+            if (!dialog.isCanceled()) 
+            {
+                currentTicket.setCustomer(dialog.getSelectedCustomer());
+                btnCustomer.setText("<html><body><center>CUSTOMER<br>\"" + dialog.getSelectedCustomer().getName() + "\"</center></body></html>");
+            }
+        }
+        catch (Exception e) 
+        {
+            POSMessageDialog.showError ("Please SELECT a customer or CANCEL.\nClick SEARCH to see customer list");
 		}
 	}
 
