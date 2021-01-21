@@ -189,12 +189,12 @@
 		</pluginManagement>
 	</build>
 
-	<dependencies>    
+    <dependencies>    
         <dependency>    
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>3.6.10.Final</version>     <!--  new  -->
-    			<exclusions>
+            <version>3.6.10.Final</version>    <!--    new  -->
+            <exclusions>
 				<exclusion>
 					<groupId>javax.transaction</groupId>
 					<artifactId>jta</artifactId>
@@ -215,7 +215,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
             <version>3.5.6-Final</version>   <!--  3.3.1.GA  -->
-        </dependency>
+        </dependency>                       
 		<dependency>
 			<groupId>com.miglayout</groupId>
 			<artifactId>miglayout</artifactId>
