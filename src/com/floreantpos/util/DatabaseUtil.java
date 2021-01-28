@@ -119,50 +119,12 @@ public class DatabaseUtil {
 		try {
 			session = dao.createNewSession();
 			Connection connection = session.connection();
-	/*		String[] tables = { "CUSTOMER", "GRATUITY", "INVENTORY_GROUP", "INVENTORY_ITEM", "INVENTORY_LOCATION", "INVENTORY_META_CODE",
+			String[] tables = { "CUSTOMER", "GRATUITY", "INVENTORY_GROUP", "INVENTORY_ITEM", "INVENTORY_LOCATION", "INVENTORY_META_CODE",
 					"INVENTORY_TRANSACTION", "INVENTORY_TRANSACTION_TYPE", "INVENTORY_UNIT", "INVENTORY_VENDOR", "INVENTORY_WAREHOUSE", "KITCHEN_TICKET",
 					"KITCHEN_TICKET_ITEM", "MENUITEM_MODIFIERGROUP", "MENU_CATEGORY", "MENU_GROUP", "MENU_ITEM", "MENU_MODIFIER", "MENU_MODIFIER_GROUP",
 					"PURCHASE_ORDER", "TAX", "TERMINAL", "TICKET", "TICKETITEM_MODIFIERGROUP", "TICKET_ITEM", "TICKETITEM_DISCOUNT", "TRANSACTIONS", "USERS",
-					"ZIP_CODE_VS_DELIVERY_CHARGE" };       */
-					
-			String[] tables = { "ACTION_HISTORY", "ATTENDENCE_HISTORY",
-"CASH_DRAWER", "CASH_DRAWER_RESET_HISTORY","COOKING_INSTRUCTION",
-"COUPON_AND_DISCOUNT", "CURRENCY","CURRENCY_BALANCE","CUSTOMER",
-"CUSTOMER_PROPERTIES","CUSTOM_PAYMENT","DATA_UPDATE_INFO",
-"DELIVERY_ADDRESS","DELIVERY_CHARGE","DELIVERY_CONFIGURATION",
-"DELIVERY_INSTRUCTION","DRAWER_ASSIGNED_HISTORY",
-"DRAWER_PULL_REPORT","DRAWER_PULL_REPORT_VOIDTICKETS",
-"EMPLOYEE_IN_OUT_HISTORY","GLOBAL_CONFIG","GRATUITY",
-"GROUP_TAXES","GUEST_CHECK_PRINT","INVENTORY_GROUP",
-"INVENTORY_ITEM","INVENTORY_LOCATION","INVENTORY_META_CODE",
-"INVENTORY_TRANSACTION","INVENTORY_UNIT","INVENTORY_VENDOR",
-"INVENTORY_WAREHOUSE","ITEM_ORDER_TYPE","KITCHEN_TICKET",
-"KITCHEN_TICKET_ITEM","KIT_TICKET_TABLE_NUM",
-"MENUCATEGORY_DISCOUNT","MENUGROUP_DISCOUNT","MENUITEM_DISCOUNT",
-"MENUITEM_MODIFIERGROUP","MENUITEM_PIZZAPIRCE","MENUITEM_SHIFT",
-"MENUMODIFIER_PIZZAMODIFIERPRICE","MENU_CATEGORY","MENU_GROUP",
-"MENU_ITEM","MENU_ITEM_PROPERTIES","MENU_ITEM_SIZE",
-"MENU_ITEM_TERMINAL_REF","MENU_MODIFIER","MENU_MODIFIER_GROUP",
-"MENU_MODIFIER_PROPERTIES","MODIFIER_MULTIPLIER_PRICE",
-"MULTIPLIER","ORDER_TYPE","PACKAGING_UNIT","PAYOUT_REASONS",
-"PAYOUT_RECEPIENTS","PIZZA_CRUST","PIZZA_MODIFIER_PRICE",
-"PIZZA_PRICE","PRINTER_CONFIGURATION","PRINTER_GROUP",
-"PRINTER_GROUP_PRINTERS","PURCHASE_ORDER","RECEPIE",
-"RECEPIE_ITEM","RESTAURANT","SHIFT","SHOP_FLOOR",
-"SHOP_FLOOR_TEMPLATE","SHOP_FLOOR_TEMPLATE_PROPERTIES",
-"SHOP_TABLE","SHOP_TABLE_STATUS","SHOP_TABLE_TYPE",
-"TABLE_BOOKING_INFO","TABLE_BOOKING_MAPPING",
-"TABLE_TICKET_NUM","TABLE_TYPE_RELATION","TAX","TAX_GROUP",
-"TERMINAL","TERMINAL_PRINTERS","TICKET","TICKET_DISCOUNT",
-"TICKET_ITEM","TICKET_ITEM_ADDON_RELATION",
-"TICKET_ITEM_COOKING_INSTRUCTION","TICKET_ITEM_DISCOUNT",
-"TICKET_ITEM_MODIFIER","TICKET_ITEM_MODIFIER_RELATION",
-"TICKET_PROPERTIES","TICKET_TABLE_NUM","TRANSACTIONS",
-"TRANSACTION_PROPERTIES","USERS","USER_PERMISSION","USER_TYPE",
-"USER_USER_PERMISSION","VIRTUALPRINTER_ORDER_TYPE",
-"VIRTUAL_PRINTER","VOID_REASONS",
-"ZIP_CODE_VS_DELIVERY_CHARGE" };		
-
+					"ZIP_CODE_VS_DELIVERY_CHARGE" };       
+				
 			for (String table : tables) {
 				try {
 					Statement statement = connection.createStatement();
@@ -177,8 +139,96 @@ public class DatabaseUtil {
 		}
 	}
 
-	public static boolean createDatabase(String connectionString, String hibernateDialect, String hibernateConnectionDriverClass, String user, String password,
-			boolean exportSampleData) {
+	public static void DropTables (String connectionString, String hibernateDialect, String hibernateConnectionDriverClass, String user, String password) throws SQLException
+	{
+        String[] tables = { "ACTION_HISTORY", "ATTENDENCE_HISTORY", "CASH_DRAWER", "CASH_DRAWER_RESET_HISTORY", "COOKING_INSTRUCTION", "COUPON_AND_DISCOUNT", "CURRENCY", "CURRENCY_BALANCE", "CUSTOMER", "CUSTOMER_PROPERTIES", "CUSTOM_PAYMENT", "DATA_UPDATE_INFO", "DELIVERY_ADDRESS", "DELIVERY_CHARGE", "DELIVERY_CONFIGURATION", "DELIVERY_INSTRUCTION", "DRAWER_ASSIGNED_HISTORY", "DRAWER_PULL_REPORT", "DRAWER_PULL_REPORT_VOIDTICKETS", "EMPLOYEE_IN_OUT_HISTORY", "GLOBAL_CONFIG", "GRATUITY", "GROUP_TAXES", "GUEST_CHECK_PRINT", "INVENTORY_GROUP", "INVENTORY_ITEM", "INVENTORY_LOCATION", "INVENTORY_META_CODE", "INVENTORY_TRANSACTION", "INVENTORY_UNIT", "INVENTORY_VENDOR", "INVENTORY_WAREHOUSE", "ITEM_ORDER_TYPE", "KITCHEN_TICKET", "KITCHEN_TICKET_ITEM", "KIT_TICKET_TABLE_NUM", "MENUCATEGORY_DISCOUNT", "MENUGROUP_DISCOUNT", "MENUITEM_DISCOUNT", "MENUITEM_MODIFIERGROUP", "MENUITEM_PIZZAPIRCE", "MENUITEM_SHIFT", "MENUMODIFIER_PIZZAMODIFIERPRICE", "MENU_CATEGORY", "MENU_GROUP", "MENU_ITEM", "MENU_ITEM_PROPERTIES", "MENU_ITEM_SIZE", "MENU_ITEM_TERMINAL_REF", "MENU_MODIFIER", "MENU_MODIFIER_GROUP", "MENU_MODIFIER_PROPERTIES", "MODIFIER_MULTIPLIER_PRICE", "MULTIPLIER", "ORDER_TYPE", "PACKAGING_UNIT", "PAYOUT_REASONS", "PAYOUT_RECEPIENTS", "PIZZA_CRUST", "PIZZA_MODIFIER_PRICE", "PIZZA_PRICE", "PRINTER_CONFIGURATION", "PRINTER_GROUP", "PRINTER_GROUP_PRINTERS", "PURCHASE_ORDER", "RECEPIE", "RECEPIE_ITEM", "RESTAURANT", "SHIFT", "SHOP_FLOOR", "SHOP_FLOOR_TEMPLATE", "SHOP_FLOOR_TEMPLATE_PROPERTIES", "SHOP_TABLE", "SHOP_TABLE_STATUS", "SHOP_TABLE_TYPE", "TABLE_BOOKING_INFO", "TABLE_BOOKING_MAPPING", "TABLE_TICKET_NUM", "TABLE_TYPE_RELATION", "TAX", "TAX_GROUP", "TERMINAL", "TERMINAL_PRINTERS", "TICKET", "TICKET_DISCOUNT", "TICKET_ITEM", "TICKET_ITEM_ADDON_RELATION", "TICKET_ITEM_COOKING_INSTRUCTION", "TICKET_ITEM_DISCOUNT", "TICKET_ITEM_MODIFIER", "TICKET_ITEM_MODIFIER_RELATION", "TICKET_PROPERTIES", "TICKET_TABLE_NUM", "TRANSACTIONS", "TRANSACTION_PROPERTIES", "USERS", "USER_PERMISSION", "USER_TYPE", "USER_USER_PERMISSION", "VIRTUALPRINTER_ORDER_TYPE", "VIRTUAL_PRINTER", "VOID_REASONS", "ZIP_CODE_VS_DELIVERY_CHARGE" };
+
+		GenericDAO dao = new GenericDAO();
+		Session session = null;        
+
+		try {
+			System.out.println ("DropTables 1");
+			Configuration configuration = dao.getNewConfiguration(null);
+
+			System.out.println ("DropTables 2");
+			configuration = configuration.setProperty("hibernate.dialect", hibernateDialect);
+
+			System.out.println ("DropTables 3");
+			configuration = configuration.setProperty("hibernate.connection.driver_class", hibernateConnectionDriverClass);
+
+			System.out.println ("DropTables 4");
+			configuration = configuration.setProperty("hibernate.connection.url", connectionString);
+
+			System.out.println ("DropTables 5");
+            configuration = configuration.setProperty("hibernate.connection.username", user);
+            
+			System.out.println ("DropTables 6");
+			configuration = configuration.setProperty("hibernate.connection.password", password);
+			
+			System.out.println ("DropTables 7");
+			configuration = configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+			
+			System.out.println ("DropTables 8");
+			configuration = configuration.setProperty("hibernate.c3p0.checkoutTimeout", "0"); //$NON-NLS-1$ //$NON-NLS-2$			
+			
+			System.out.println ("DropTables 9");
+			SessionFactory sessionFactory = configuration.buildSessionFactory();
+			
+			System.out.println ("DropTables 10");
+			session = sessionFactory.openSession();
+			
+			System.out.println ("DropTables 11");
+			Connection connection = session.connection();
+
+			System.out.println ("DropTables 12");
+			Statement statement = connection.createStatement();
+			statement.execute("Set foreign_key_checks=0;");
+					
+			for (String table : tables) 
+			{
+				try 
+				{
+                    String sql = "DROP TABLE if exists " + table + ";";
+					statement.execute(sql);
+					System.out.println (sql);
+				} 
+				catch (Exception e) 
+				{
+					logger.error("DropTables:  " + e);
+				}
+			}			
+			
+		//	statement = connection.createStatement();
+			statement.execute("Set foreign_key_checks=1;");
+			
+ 			connection.commit();       
+        }
+        catch (Exception e)
+        {
+            logger.error (e);
+            System.exit (4);
+		}
+		finally
+		{
+			// _RootDAO.closeSession(session);
+		}        
+	}
+	
+	public static boolean createDatabase(String connectionString, String hibernateDialect, String hibernateConnectionDriverClass, String user, String password, 	boolean exportSampleData) 
+	{
+        System.out.println ("Dopping any existing tables...");
+        try
+        {
+            DropTables (connectionString, hibernateDialect, hibernateConnectionDriverClass, user, password);
+        }
+        catch (Exception e)
+        {
+            System.out.println ("Error occurred in DropTables");
+            logger.error (e);
+            System.exit (4);
+        }  
+        
+        System.out.println ("Creating new database...");
 		try {
 			Configuration configuration = _RootDAO.getNewConfiguration(null);
 
@@ -193,18 +243,9 @@ public class DatabaseUtil {
 
 			SchemaExport schemaExport = new SchemaExport(configuration);
 	
-            
-	
 			schemaExport.create(true, true);   // create
 
-
-     //       if (true == true)
-     //           System.exit (0);
-	
-				
-
 			_RootDAO.initialize();
-			
 			
 			Restaurant restaurant = new Restaurant();
 			restaurant.setId(Integer.valueOf(1));

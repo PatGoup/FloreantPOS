@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.4.1  (my versioning number update)
 
+bug fix:  duplicate key error when trying to create database schema to an existing mysql database.
+
 update customer/DefaultCustomerListView.java and ui/views/order/OrderView.java to display info message if no customer selected and press SELECT button when setting customer name on ticket while placing an order.
 
 update ui/views/order/CategoryView.java bug: nothing shows in order view if only 1 ctegory has active menu groups / menu items

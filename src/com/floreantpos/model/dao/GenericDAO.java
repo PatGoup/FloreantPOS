@@ -18,11 +18,16 @@
 package com.floreantpos.model.dao;
 
 import java.io.Serializable;
+import java.sql.Connection;
 import java.util.List;
 
+import org.hibernate.cfg.Configuration;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import com.floreantpos.Database;
+import com.floreantpos.config.AppConfig;
 
 public class GenericDAO extends _RootDAO {
 
@@ -79,4 +84,24 @@ public class GenericDAO extends _RootDAO {
 			super.closeSession(session);
 		}catch(Exception x) {}
 	}
+
+	public static Configuration getNewConfiguration(String configFileName) {
+		Configuration configuration = new Configuration();	
+		Database defaultDatabase = AppConfig.getDefaultDatabase();
+
+		configuration.setProperty("hibernate.dialect", defaultDatabase.getHibernateDialect()); //$NON-NLS-1$
+		configuration.setProperty("hibernate.connection.driver_class", defaultDatabase.getHibernateConnectionDriverClass()); //$NON-NLS-1$
+
+		configuration.setProperty("hibernate.connection.url", AppConfig.getConnectString()); //$NON-NLS-1$
+		configuration.setProperty("hibernate.connection.username", AppConfig.getDatabaseUser()); //$NON-NLS-1$
+		configuration.setProperty("hibernate.connection.password", AppConfig.getDatabasePassword()); //$NON-NLS-1$
+		configuration.setProperty("hibernate.hbm2ddl.auto", "update"); //$NON-NLS-1$ //$NON-NLS-2$
+		configuration.setProperty("hibernate.connection.autocommit", "false"); //$NON-NLS-1$ //$NON-NLS-2$
+		configuration.setProperty("hibernate.max_fetch_depth", "3"); //$NON-NLS-1$ //$NON-NLS-2$
+		configuration.setProperty("hibernate.show_sql", "false"); //$NON-NLS-1$ //$NON-NLS-2$
+		configuration.setProperty("hibernate.connection.isolation", String.valueOf(Connection.TRANSACTION_READ_COMMITTED)); //$NON-NLS-1$
+
+		return configuration;	
+	}
+	
 }
