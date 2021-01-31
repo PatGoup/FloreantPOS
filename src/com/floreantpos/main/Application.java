@@ -97,6 +97,7 @@ public class Application {
 	private User currentUser;
 	private RootView rootView;
 	private List<OrderType> orderTypes;
+	private List<OrderType> orderTypesSorted;	
 	private Shift currentShift;
 	public PrinterConfiguration printConfiguration;
 	private Restaurant restaurant;
@@ -163,6 +164,7 @@ public class Application {
 
 			initTerminal();
 			initOrderTypes();
+			initOrderTypesSorted("NAME");
 			initPrintConfig();
 			refreshRestaurant();
 			loadCurrency();
@@ -245,6 +247,7 @@ public class Application {
 
 		initTerminal();
 		initOrderTypes();
+		initOrderTypesSorted("NAME");
 		initPrintConfig();
 		refreshRestaurant();
 		loadCurrency();
@@ -265,6 +268,17 @@ public class Application {
 		}
 	}
 
+	private void initOrderTypesSorted(String column) 
+	{
+		OrderTypeDAO dao = OrderTypeDAO.getInstance();
+		orderTypesSorted = dao.findEnabledOrderTypesSorted(column);
+		try {
+			if (!dao.containsOrderTypeObj()) {
+				dao.updateMenuItemOrderType();
+			}
+		} catch (Exception ex) {
+		}
+	}
 	private void initPlugins() {
 		ExtensionManager.getInstance().initialize(Main.class);
 		List<FloreantPlugin> plugins = ExtensionManager.getPlugins();
@@ -356,6 +370,10 @@ public class Application {
 
 	public List<OrderType> getOrderTypes() {
 		return orderTypes;
+	}
+
+	public List<OrderType> getOrderTypesSorted(String column) {
+		return orderTypesSorted;
 	}
 
 	public synchronized static Application getInstance() {

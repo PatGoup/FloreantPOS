@@ -187,7 +187,7 @@ public class LoginView extends ViewPanel {
 		panel1.removeAll();
 		panel2.removeAll();
 
-		List<com.floreantpos.model.OrderType> orderTypes = Application.getInstance().getOrderTypes();
+		List<com.floreantpos.model.OrderType> orderTypes = Application.getInstance().getOrderTypesSorted("NAME");
 		int buttonCount = 0;
 
 		for (com.floreantpos.model.OrderType orderType : orderTypes) {

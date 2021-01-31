@@ -31,6 +31,10 @@ public abstract class BaseMenuItemDAO extends com.floreantpos.model.dao._RootDAO
 		return Order.asc("name");
     }
 
+    public Order getSortedOrder (String column) {
+		return Order.asc(column);
+    }
+
 	/**
 	 * Cast the object as a com.floreantpos.model.MenuItem
 	 */

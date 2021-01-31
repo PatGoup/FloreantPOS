@@ -195,7 +195,7 @@ public class SwitchboardView extends ViewPanel implements ActionListener, ITicke
 	public void rendererOrderPanel() {
 		orderPanel.removeAll();
 		List<com.floreantpos.model.OrderType> orderTypes = new ArrayList<>();
-		orderTypes.addAll(Application.getInstance().getOrderTypes());
+		orderTypes.addAll(Application.getInstance().getOrderTypesSorted("NAME"));
 		if (RootView.getInstance().isMaintenanceMode()) {
 			OrderType newOrderType = new OrderType();
 			newOrderType.setName("");

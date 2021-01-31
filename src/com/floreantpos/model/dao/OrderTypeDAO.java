@@ -3,6 +3,7 @@ package com.floreantpos.model.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -33,6 +34,22 @@ public class OrderTypeDAO extends BaseOrderTypeDAO {
 		}
 	}
 
+	public List<OrderType> findEnabledOrderTypesSorted(String column) 
+	{
+		Session session = null;
+		try {
+			session = createNewSession();
+
+			Criteria criteria = session.createCriteria (getReferenceClass()); 
+			criteria.add (Restrictions.eq(OrderType.PROP_ENABLED, true));
+			criteria.addOrder (Order.asc (column.toLowerCase()));
+
+			return criteria.list();
+		} finally {
+			closeSession(session);
+		}
+	}
+/*******************	
 	public List<OrderType> findLoginScreenViewOrderTypes() {
 		Session session = null;
 		try {
@@ -47,7 +64,7 @@ public class OrderTypeDAO extends BaseOrderTypeDAO {
 			closeSession(session);
 		}
 	}
-
+**********************/
 	public OrderType findByName(String orderType) {
 		Session session = null;
 		try {
