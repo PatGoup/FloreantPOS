@@ -1,0 +1,174 @@
+package com.floreantpos.model.dao;
+
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;  //???
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
+import com.floreantpos.PosLog;
+import com.floreantpos.model.OrderType;
+
+public class OrderTypeDAO extends BaseOrderTypeDAO {
+
+	/**
+	 * Default constructor.  Can be used in place of getInstance()
+	 */
+	public OrderTypeDAO() { 
+	}
+
+	public List<OrderType> findEnabledOrderTypes() {
+		Session session = null;
+		try {
+			session = createNewSession();
+
+			Criteria criteria = session.createCriteria(getReferenceClass());
+			criteria.add(Restrictions.eq(OrderType.PROP_ENABLED, true));
+			
+		//	criteria.addGroup  (OrderType.PROP_NAME);
+			
+			criteria.addOrder (Order.asc (OrderType.PROP_SORT_ORDER));
+			criteria.addOrder (Order.asc (OrderType.PROP_NAME));
+			
+			//??? criteria get only ordertypes with items 
+			
+			
+			return criteria.list();
+		} finally {
+			closeSession(session);
+		}
+	}
+
+	public List<OrderType> findLoginScreenViewOrderTypes() {
+		Session session = null;
+		try {
+			session = createNewSession();
+
+			Criteria criteria = session.createCriteria(getReferenceClass());
+			criteria.add(Restrictions.eq(OrderType.PROP_ENABLED, true));
+			criteria.add(Restrictions.eq(OrderType.PROP_SHOW_IN_LOGIN_SCREEN, true));
+			
+			criteria.addOrder (Order.asc(OrderType.PROP_SORT_ORDER));
+			criteria.addOrder (Order.asc(OrderType.PROP_NAME));
+					
+
+			return criteria.list();
+			//???  start
+			/*****************
+		
+		List <OrderType> types = null;
+        
+        String strSelect = "select distinct  ORDER_TYPE.NAME "; 
+
+        String strFrom = "from ORDER_TYPE, ITEM_ORDER_TYPE, MENU_ITEM, MENU_GROUP, MENU_CATEGORY ";
+
+        String strWhere = "where  ORDER_TYPE.ENABLED = true ";
+        String strAnd1 = "and  ITEM_ORDER_TYPE.ORDER_TYPE_ID =  ORDER_TYPE.ID ";
+        String strAnd2 = "and  ITEM_ORDER_TYPE.MENU_ITEM_ID =  MENU_ITEM.ID ";
+        String strAnd3 = "and  MENU_ITEM.GROUP_ID = MENU_GROUP.ID  ";
+        String strAnd4 = "and  MENU_GROUP.CATEGORY_ID =  MENU_CATEGORY.ID ";
+
+        String strGroupBy = "group by  ORDER_TYPE.NAME "; 
+
+        String strOrderBy = "order by  ORDER_TYPE.SORT_ORDER,  ORDER_TYPE.NAME;";
+		
+		try 
+		{
+            session = createNewSession();
+            Query query = session.createSQLQuery (strSelect + strFrom + strWhere + strAnd1 + strAnd2 + strAnd3 + strAnd4 + strGroupBy + strOrderBy);
+
+            types = query.list();
+  
+		} 
+		finally 
+		{
+			closeSession(session);
+		}		
+		return types;	
+			
+			***********************/
+			//???  end
+		} finally {
+			closeSession(session);
+		}
+	}
+
+	public OrderType findByName(String orderType) {
+		Session session = null;
+		try {
+			session = createNewSession();
+
+			Criteria criteria = session.createCriteria(getReferenceClass());
+			criteria.add(Restrictions.eq(OrderType.PROP_NAME, orderType));
+
+			return (OrderType) criteria.uniqueResult();
+		} finally {
+			closeSession(session);
+		}
+	}
+
+	/*
+	 * 
+	 * Checking menu item order types contain order type object or name.
+	 * 
+	 */
+	public boolean containsOrderTypeObj() {
+		Session session = null;
+		try {
+			session = createNewSession();
+			Query query = session.createSQLQuery("select count(s.MENU_ITEM_ID), count(s.ORDER_TYPE_ID) from ITEM_ORDER_TYPE s");
+			List result = query.list();
+			Object[] object = (Object[]) result.get(0);
+			Integer menuItemCount = getInt(object, 0);
+			Integer orderTypeCount = getInt(object, 1);
+
+			if (menuItemCount < 1) {
+				return true;
+			}
+			return orderTypeCount > 0;
+		} catch (Exception e) {
+			PosLog.error(getClass(), e);
+		} finally {
+			if (session != null) {
+				closeSession(session);
+			}
+		}
+		return false;
+	}
+
+	/*
+	 * This method is used for updating menu item order type name to order type object. 
+	 * 
+	 */
+	public void updateMenuItemOrderType() {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = createNewSession();
+			tx = session.beginTransaction();
+			Query query = session.createSQLQuery("Update ITEM_ORDER_TYPE t SET t.ORDER_TYPE_ID=(Select o.id from ORDER_TYPE o where o.NAME=t.ORDER_TYPE)");
+			query.executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+		} finally {
+			if (session != null) {
+				closeSession(session);
+			}
+		}
+	}
+
+	private Integer getInt(Object[] array, int index) {
+		if (array.length < (index + 1))
+			return null;
+		
+		if (array[index] instanceof Number) {
+			return ((Number) array[index]).intValue();
+		}
+
+		return null;
+	}
+}

@@ -1,0 +1,27 @@
+update pom.xml file with
+<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.4.0-b180830.0359</version>
+</dependency>
+
+update pom.xml dependencies from maven repositories
+
+copy com/floreantpos/util/AESencrp.java (from github) to current source
+
+copy com/floreantpos/misc/WrapLayout.java  to current source
+
+update Application.java, OrderType.hbm.xml, BaseOrderType.java, OrderTypeDAO.java to only accept order types with items
+
+update MenuCategoryDAO.jva MenuGroupDAO.java, MenuItemDAO.java for order by sortOrder, name
+
+copy SelectionView.java to SelectionViewWL.java (wraplayout).  update GroupView to extend SelectionViewWL.
+
+
+===================================
+virtual frame buffer  apt install xvfb
+
+run floreantpos as a web app for pc/phone/tablet
+
+https://fat-tire.github.io/floreantpos.html
