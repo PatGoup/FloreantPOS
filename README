@@ -1,6 +1,6 @@
 Copied from floreantpos.org / sourceforge.net version 1.5 subversion 1960.
 
-Redid the order / right side of the register screenshot image.png, modifiers.png).  Made smaller dynamic sized buttons.  Show categories / groups / items on a scerollable screen.  Note that if a category / group has no items for sale, the category / group will not show on the register.
+Redid the order / right side of the register (screenshot image.png, modifiers.png).  Made smaller dynamic sized buttons.  Show categories / groups / items on a scerollable screen.  Note that if a category / group has no items for sale, the category / group will not show on the register.
 
 Installation from a terminal prompt in the floreantpos directory:
 
@@ -12,4 +12,10 @@ Run floreantpos from the terminal shell:
 
 Samle database:
 Use the default derby sample database or create a mysql database and create schema / import sample database from the dashboard.
+
+Run FloreantPOS from a pc, phone or tablet using webswing.  Visit the following sites to learm how.
+
+webswing via zap  https://www.zaproxy.org/docs/docker/webswing/
+
+webswing native  https://fat-tire.github.io/floreantpos.html
 
