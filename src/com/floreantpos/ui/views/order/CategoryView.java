@@ -36,10 +36,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-import javax.swing.JToggleButton;   //???
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JToggleButton;   //???
+
 
 import org.apache.log4j.Logger;
 
@@ -166,14 +167,14 @@ public class CategoryView extends SelectionViewWL implements ActionListener {
         }
 	}
 
-	/*****************************
+	
 	@Override
 	protected AbstractButton createItemButton(Object item) {
 		MenuCategory menuCategory = (MenuCategory) item;
 		//List<MenuGroup> menuGroups = menuCategory.getMenuGroups();
 		/*if (menuGroups == null || menuGroups.size() == 0) {
 			return null;
-		}  *  /
+		}  */
 
 		CategoryButton button = new CategoryButton(this, menuCategory);
 		categoryButtonGroup.add(button);
@@ -182,18 +183,18 @@ public class CategoryView extends SelectionViewWL implements ActionListener {
 
 		return button;
 	}
-    **********************/
     
-    
-    //???   @override
+
+    /***************************
+    @override
     protected JToggleButton createItemButton(Object item) {
         MenuCategory menuCategory = (MenuCategory)item;
         CategoryButton button = new CategoryButton(this, menuCategory);
         this.categoryButtonGroup.add((AbstractButton)button);
         this.buttonMap.put(String.valueOf(menuCategory.getId()), button);
         return (JToggleButton)button;
-  }    
-    
+    }    
+    *******************************/
     
     
 	public void updateView(MenuCategory menuCategory) {
@@ -231,7 +232,10 @@ public class CategoryView extends SelectionViewWL implements ActionListener {
 		}
 	}
 
-	private static class CategoryButton extends POSToggleButton {
+    //???  	private static class CategoryButton extends POSToggleButton {	
+	
+	private static class CategoryButton extends JToggleButton
+	{
 		MenuCategory foodCategory;
 
 		CategoryButton(CategoryView view, MenuCategory menuCategory) {
