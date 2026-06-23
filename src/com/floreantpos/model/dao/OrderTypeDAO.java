@@ -3,6 +3,7 @@ package com.floreantpos.model.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -26,6 +27,8 @@ public class OrderTypeDAO extends BaseOrderTypeDAO {
 
 			Criteria criteria = session.createCriteria(getReferenceClass());
 			criteria.add(Restrictions.eq(OrderType.PROP_ENABLED, true));
+
+            criteria.addOrder(Order.asc(OrderType.PROP_NAME));
 
 			return criteria.list();
 		} finally {

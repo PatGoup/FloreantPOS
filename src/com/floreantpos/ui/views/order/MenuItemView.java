@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.Insets;     //???
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -39,6 +40,7 @@ import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.SwingConstants;
+import javax.swing.JToggleButton;  //???
 
 import com.floreantpos.IconFactory;
 import com.floreantpos.PosException;
@@ -54,11 +56,16 @@ import com.floreantpos.swing.PosUIManager;
 import com.floreantpos.ui.views.order.actions.ItemSelectionListener;
 import com.floreantpos.util.CurrencyUtil;
 
+import com.floreantpos.misc.WrapLayout;  //???
+
 /**
  * 
  * @author MShahriar
  */
-public class MenuItemView extends SelectionView {
+ 
+ //???  public class MenuItemView extends SelectionView {
+public class MenuItemView extends SelectionViewWL
+{
 	public final static String VIEW_NAME = "ITEM_VIEW"; //$NON-NLS-1$
 
 	private Vector<ItemSelectionListener> listenerList = new Vector<ItemSelectionListener>();
@@ -69,8 +76,12 @@ public class MenuItemView extends SelectionView {
 	private boolean showStockCount;
 
 	/** Creates new form GroupView */
-	public MenuItemView() {
-		super(com.floreantpos.POSConstants.ITEMS, PosUIManager.getSize(120), PosUIManager.getSize(80));
+	public MenuItemView() 
+	{
+        //???super(com.floreantpos.POSConstants.ITEMS, PosUIManager.getSize(120), PosUIManager.getSize(80));
+		
+        super(com.floreantpos.POSConstants.ITEMS);
+        
 		remove(actionButtonPanel);
 
 		btnPrev.setText("<");
@@ -78,6 +89,7 @@ public class MenuItemView extends SelectionView {
 
 		add(btnPrev, BorderLayout.WEST);
 		add(btnNext, BorderLayout.EAST);
+
 	}
 
 	public MenuGroup getMenuGroup() {
@@ -173,11 +185,15 @@ public class MenuItemView extends SelectionView {
 		}
 	}
 
-	public class ItemButton extends PosButton implements ActionListener, MouseListener {
+	
+	//???  	public class ItemButton extends PosButton implements ActionListener, MouseListener {
+	public class ItemButton extends JToggleButton implements ActionListener, MouseListener {
 		private int BUTTON_SIZE = 100;
 		MenuItem foodItem;
 
-		ItemButton(MenuItem menuItem) {
+		ItemButton(MenuItem menuItem) 
+		{
+            setMargin (new Insets (5,5,5,5));
 			setFocusable(false);
 			setVerticalTextPosition(SwingConstants.BOTTOM);
 			setHorizontalTextPosition(SwingConstants.CENTER);
@@ -185,7 +201,7 @@ public class MenuItemView extends SelectionView {
 
 			updateView(menuItem);
 
-			setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
+		//???	setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
 			addActionListener(this);
 			addMouseListener(this);
 		}

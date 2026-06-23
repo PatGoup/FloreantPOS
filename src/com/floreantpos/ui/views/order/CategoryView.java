@@ -26,6 +26,7 @@ package com.floreantpos.ui.views.order;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;     //???
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,10 +57,9 @@ import com.floreantpos.swing.POSToggleButton;
 import com.floreantpos.swing.PosUIManager;
 import com.floreantpos.ui.views.order.actions.CategorySelectionListener;
 
+import com.floreantpos.misc.WrapLayout;  //???
 
-//???
-import com.floreantpos.ui.dialog.POSMessageDialog;
-import com.floreantpos.misc.WrapLayout;
+
 /**
  *
  * @author  MShahriar
@@ -79,12 +79,12 @@ public class CategoryView extends SelectionViewWL implements ActionListener {
 	/** Creates new form CategoryView */
 	public CategoryView() {
     
-        //??? super(com.floreantpos.POSConstants.CATEGORIES, PosUIManager.getSize(100), PosUIManager.getSize(80));
+     //???   super(com.floreantpos.POSConstants.CATEGORIES, PosUIManager.getSize(100), PosUIManager.getSize(60));
+        super(com.floreantpos.POSConstants.CATEGORIES);
 
-        super(com.floreantpos.POSConstants.CATEGORIES, PosUIManager.getSize(80), PosUIManager.getSize(32));        
-        
-		categoryButtonGroup = new ButtonGroup();
-	//???	setPreferredSize(new Dimension(PosUIManager.getSize(120, 100)));
+        categoryButtonGroup = new ButtonGroup();
+	
+        //??? setPreferredSize(new Dimension(PosUIManager.getSize(120, 100)));
 	}
 
 	public void initialize() 
@@ -141,9 +141,7 @@ public class CategoryView extends SelectionViewWL implements ActionListener {
             }
             else 
             {
-                //???###  this returns null
                 categoryButton = (CategoryButton) getFirstItemButton();
-            ///    categoryButton = (CategoryButton) getFirstCategoryItemButton();
             }
        
             if (categoryButton != null) 
@@ -204,10 +202,10 @@ public class CategoryView extends SelectionViewWL implements ActionListener {
 
 	@Override
 	protected LayoutManager createButtonPanelLayout() {
-        //???
-		//???return new GridLayout(0, 1, 2, 5);
+        //???  start
+		// return new GridLayout(0, 1, 2, 5);
 		return new WrapLayout ();
-		//???
+		//???  end
 	}
 
 	public void addCategorySelectionListener(CategorySelectionListener listener) {
@@ -234,15 +232,18 @@ public class CategoryView extends SelectionViewWL implements ActionListener {
 
     //???  	private static class CategoryButton extends POSToggleButton {	
 	
-	private static class CategoryButton extends JToggleButton
+	private static class CategoryButton extends JToggleButton      //???
 	{
-		MenuCategory foodCategory;
 
-		CategoryButton(CategoryView view, MenuCategory menuCategory) {
+        MenuCategory foodCategory;
+
+		CategoryButton(CategoryView view, MenuCategory menuCategory) 
+		{
+            setMargin(new Insets(5, 5, 5, 5));
 			updateView(menuCategory);
 			addActionListener(view);
 		}
-
+        
 		public void updateView(MenuCategory menuCategory) {
 			this.foodCategory = menuCategory;
 

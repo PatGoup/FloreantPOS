@@ -193,7 +193,10 @@ public class OrderView extends ViewPanel implements PaymentListener, TicketEditL
 		midContainer.add (pnlNorth, BorderLayout.NORTH);
 		//???
 		
-		midContainer.add(itemView);
+		midContainer.add(itemView, BorderLayout.CENTER);
+        midContainer.revalidate ();  //???
+		midContainer.repaint ();  //???
+		
 
 		//		add(categoryView, java.awt.BorderLayout.EAST);
 		//		add(ticketView, java.awt.BorderLayout.WEST);

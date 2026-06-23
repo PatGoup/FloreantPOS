@@ -26,6 +26,7 @@ package com.floreantpos.ui.views.order;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Insets;         //???
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +37,7 @@ import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JToggleButton;  //???
 
 import com.floreantpos.IconFactory;
 import com.floreantpos.bo.ui.explorer.QuickMaintenanceExplorer;
@@ -48,11 +50,16 @@ import com.floreantpos.swing.POSToggleButton;
 import com.floreantpos.swing.PosUIManager;
 import com.floreantpos.ui.views.order.actions.GroupSelectionListener;
 
+import com.floreantpos.misc.WrapLayout;
+import com.floreantpos.ui.dialog.POSMessageDialog;
 /**
  *
  * @author  MShahriar
  */
-public class GroupView extends SelectionView {
+ 
+//??? public class GroupView extends SelectionView {
+public class GroupView extends SelectionViewWL  //???
+{
 	private Vector<GroupSelectionListener> listenerList = new Vector<GroupSelectionListener>();
 
 	private MenuCategory menuCategory;
@@ -63,8 +70,9 @@ public class GroupView extends SelectionView {
 
 	/** Creates new form GroupView */
 	public GroupView() {
-		super(com.floreantpos.POSConstants.GROUPS, PosUIManager.getSize(100), PosUIManager.getSize(60));
-
+		//??? super(com.floreantpos.POSConstants.GROUPS, PosUIManager.getSize(100), PosUIManager.getSize(60));
+        super(com.floreantpos.POSConstants.GROUPS);     //???
+		
 		//removeAll();
 		//buttonsPanel.setLayout(new GridLayout(1, 0, 5, 5));
 		remove(actionButtonPanel);
@@ -112,21 +120,27 @@ public class GroupView extends SelectionView {
 					}
 				}
 			}
+			
 			setItems(groups);
 
-			if (!RootView.getInstance().isMaintenanceMode() && groups.size() <= 1) {
+			if (!RootView.getInstance().isMaintenanceMode() && groups.size() < 1)  //??? <- 1
+			{
 				setVisible(false);
 			}
 			else {
 				setVisible(true);
 			}
 
-			if (groups.size() > 0) {
+			if (groups.size() > 0)
+			{
 				MenuGroup menuGroup = groups.get(0);
+
 				GroupButton groupButton = (GroupButton) getFirstItemButton();
-				if (groupButton != null) {
-					groupButton.setSelected(true);
-					fireGroupSelected(menuGroup);
+				
+				if (groupButton != null) 
+				{
+                    groupButton.setSelected(true);
+                    fireGroupSelected(menuGroup);
 				}
 				return;
 			}
@@ -158,7 +172,8 @@ public class GroupView extends SelectionView {
 
 	@Override
 	protected LayoutManager createButtonPanelLayout() {
-		return new GridLayout(1, 0, 5, 0);
+	//???	return new GridLayout(1, 0, 5, 0);
+        return new WrapLayout ();
 	}
 
 	public void addGroupSelectionListener(GroupSelectionListener listener) {
@@ -184,10 +199,15 @@ public class GroupView extends SelectionView {
 		return button;
 	}
 
-	private class GroupButton extends POSToggleButton implements ActionListener {
+	
+	//???  	private class GroupButton extends POSToggleButton implements ActionListener {
+	private class GroupButton extends JToggleButton implements ActionListener  //??? 
+	{
 		MenuGroup menuGroup;
 
-		GroupButton(MenuGroup foodGroup) {
+		GroupButton(MenuGroup foodGroup) 
+		{
+			setMargin (new Insets (5,5,5,5));
 			updateView(foodGroup);
 			addActionListener(this);
 		}

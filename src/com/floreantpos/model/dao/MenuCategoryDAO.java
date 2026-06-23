@@ -42,6 +42,9 @@ public class MenuCategoryDAO extends BaseMenuCategoryDAO {
 			Criteria criteria = session.createCriteria(getReferenceClass());
 			criteria.add(Restrictions.eq(MenuCategory.PROP_VISIBLE, Boolean.TRUE));
 			criteria.addOrder(Order.asc(MenuCategory.PROP_SORT_ORDER));
+
+            criteria.addOrder(Order.asc(MenuCategory.PROP_NAME));
+						
 			return criteria.list();
 		} finally {
 			closeSession(session);

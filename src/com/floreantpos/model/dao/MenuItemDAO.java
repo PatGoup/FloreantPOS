@@ -108,8 +108,10 @@ public class MenuItemDAO extends BaseMenuItemDAO {
 			session = getSession();
 			Criteria criteria = session.createCriteria(getReferenceClass());
 			criteria.add(Restrictions.eq(MenuItem.PROP_PARENT, group));
-			//
-			criteria.addOrder(Order.asc(MenuItem.PROP_SORT_ORDER));
+			
+            criteria.addOrder(Order.asc(MenuItem.PROP_SORT_ORDER));
+			
+            criteria.addOrder(Order.asc(MenuItem.PROP_NAME));
 
 			if (!includeInvisibleItems) {
 				criteria.add(Restrictions.eq(MenuItem.PROP_VISIBLE, Boolean.TRUE));

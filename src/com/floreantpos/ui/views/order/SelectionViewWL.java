@@ -78,14 +78,27 @@ public abstract class SelectionViewWL extends JPanel implements ComponentListene
 	
 
 	public SelectionViewWL (String title, int buttonWidth, int buttonHeight) {
+        doInit (title);
+    }
+    
+	public SelectionViewWL (String title)
+	{
+        doInit (title);
+    }
+        
+    
+    private void doInit (String title)
+    {
 		this.title = title;
-		this.buttonSize = new Dimension(buttonWidth, buttonHeight);
-
+	//???	this.buttonSize = new Dimension(buttonWidth, buttonHeight);
+        this.buttonSize = new Dimension(120,100);      //???
+	
 		border = new TitledBorder(title);
 		border.setTitleJustification(TitledBorder.CENTER);
 		setBorder(new CompoundBorder(border, new EmptyBorder(2, 2, 2, 2)));
 
-		setLayout(new BorderLayout(HORIZONTAL_GAP, VERTICAL_GAP));
+	//???	setLayout(new BorderLayout(HORIZONTAL_GAP, VERTICAL_GAP));
+        setLayout (new BorderLayout ());  //???
 
         buttonPanelContainer.add(cardLayoutContainer);
 		add(buttonPanelContainer);
@@ -110,10 +123,14 @@ public abstract class SelectionViewWL extends JPanel implements ComponentListene
 		btnPrev.setVisible(false);
 	}
 
+    //???
+    /***********    
 	public SelectionViewWL (String title) {
 		this(title, 120, TerminalConfig.getMenuItemButtonHeight());
 	}
-
+    *******************/
+    //???
+	
 	public void setTitle(String title) {
 		border.setTitle(title);
 	}

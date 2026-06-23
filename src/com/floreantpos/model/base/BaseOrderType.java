@@ -28,6 +28,7 @@ public abstract class BaseOrderType  implements Comparable, Serializable {
 	public static String PROP_BAR_TAB = "barTab"; //$NON-NLS-1$
 	public static String PROP_PROPERTIES = "properties"; //$NON-NLS-1$
 	public static String PROP_SHOW_STOCK_COUNT_ON_BUTTON = "showStockCountOnButton"; //$NON-NLS-1$
+	public static String PROP_SORT_ORDER = "sortOrder"; //$NON-NLS-1$
 	public static String PROP_NAME = "name"; //$NON-NLS-1$
 	public static String PROP_SHOW_IN_LOGIN_SCREEN = "showInLoginScreen"; //$NON-NLS-1$
 	public static String PROP_PREPAID = "prepaid"; //$NON-NLS-1$
@@ -76,6 +77,7 @@ public abstract class BaseOrderType  implements Comparable, Serializable {
 	private java.lang.Integer id;
 
 	// fields
+		protected java.lang.String sortOrder;	
 		protected java.lang.String name;
 		protected java.lang.Boolean enabled;
 		protected java.lang.Boolean showTableSelection;
@@ -444,6 +446,12 @@ public abstract class BaseOrderType  implements Comparable, Serializable {
 		this.showPriceOnButton = showPriceOnButton;
 	}
 
+	/**
+	 * Return the value associated with the column: sortOrder
+	 */
+	public java.lang.String getSortOrer () {
+					return sortOrder;
+			}
 
 
 	/**
