@@ -32,6 +32,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.BoxLayout;
+import javax.swing.JScrollPane; //???
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -186,17 +188,34 @@ public class OrderView extends ViewPanel implements PaymentListener, TicketEditL
 		midContainer.setOpaque(false);
 		midContainer.setBorder(null);
 		
-		//???
+		//???  start
 		pnlNorth = new JPanel (new BorderLayout () );
  		pnlNorth.add (groupView, BorderLayout.SOUTH);
 		//??? midContainer.add(groupView, BorderLayout.NORTH);
 		midContainer.add (pnlNorth, BorderLayout.NORTH);
-		//???
 		
-		midContainer.add(itemView, BorderLayout.CENTER);
-        midContainer.revalidate ();  //???
-		midContainer.repaint ();  //???
+		// midContainer.add(itemView, BorderLayout.CENTER);
+        //???midContainer.revalidate ();  
+		//???midContainer.repaint ();  
+		JPanel pnlCenter = new JPanel (); //???
 		
+        pnlCenter.setLayout (new BoxLayout (pnlCenter, BoxLayout.PAGE_AXIS));  //???
+        pnlCenter.add (itemView, BorderLayout.CENTER);
+
+        JScrollPane scrlPane = new  JScrollPane (pnlCenter);  //???
+        //JScrollPane scrlPane = new JScrollPane(itemView);  //???
+
+        scrlPane.setHorizontalScrollBar(null); //???
+        midContainer.add (scrlPane, BorderLayout.CENTER);  //???
+        midContainer.revalidate ();
+        midContainer.repaint ();
+
+        add (midContainer, BorderLayout.CENTER);
+        
+        revalidate ();     //???
+        repaint ();        //???
+		
+		//???  end		
 
 		//		add(categoryView, java.awt.BorderLayout.EAST);
 		//		add(ticketView, java.awt.BorderLayout.WEST);
