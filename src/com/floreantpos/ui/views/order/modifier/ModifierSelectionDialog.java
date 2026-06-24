@@ -75,7 +75,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Graphics;
 import com.floreantpos.ui.views.order.SelectionViewWL;
 import javax.swing.BorderFactory;
-
+import com.floreantpos.misc.WrapLayout;
 //???   end
 /**
  *
@@ -177,20 +177,20 @@ public class ModifierSelectionDialog extends POSDialog implements ModifierGroupS
   		add (pnlCenter, BorderLayout.CENTER);   //???
         
    //???###     pnlCenter.add (pnlNorth, BorderLayout.NORTH);
-
-
         
 		modifierGroupView = new com.floreantpos.ui.views.order.modifier.ModifierGroupView(modifierSelectionModel);
 		modifierGroupView.setName ("modifierGroupView");
         modifierGroupView.addModifierGroupSelectionListener(this);
         
         pnlNorth = new JPanel ();
-        pnlNorth.setLayout (new BoxLayout(pnlNorth, BoxLayout.Y_AXIS));
+   //???     pnlNorth.setLayout (new BoxLayout(pnlNorth, BoxLayout.Y_AXIS));
+   pnlNorth.setLayout (new WrapLayout (WrapLayout.CENTER));
         pnlNorth.setName ("pnlNorth");
         pnlNorth.add (modifierGroupView);
        
         pnlModifiers = new JPanel ();
-        pnlModifiers.setLayout (new BoxLayout(pnlModifiers, BoxLayout.Y_AXIS));
+    //??? pnlModifiers.setLayout (new BoxLayout(pnlModifiers, BoxLayout.Y_AXIS));
+        pnlModifiers.setLayout (new WrapLayout (WrapLayout.CENTER));
         pnlModifiers.setName ("pnlModifiers");
         
         pnlCenter.add (pnlModifiers, BorderLayout.CENTER);

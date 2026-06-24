@@ -53,7 +53,7 @@ import com.floreantpos.model.ModifierGroup;
 import com.floreantpos.swing.POSToggleButtonWL; //???
 import com.floreantpos.swing.ScrollableFlowPanel;
 import com.jidesoft.swing.SimpleScrollPane;
-
+import com.floreantpos.misc.WrapLayout;
 /**
  * 
  * @author MShahriar
@@ -76,7 +76,7 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 		this.modifierSelectionModel = modifierSelectionModel;
 
 //???	setLayout(new BorderLayout());
-        setLayout (new FlowLayout (FlowLayout.CENTER));
+        setLayout (new WrapLayout (WrapLayout.CENTER));
 		TitledBorder border = new TitledBorder(POSConstants.GROUPS);
 		border.setTitleJustification(TitledBorder.CENTER);
 		setBorder(border);
