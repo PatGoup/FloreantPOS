@@ -26,6 +26,7 @@ package com.floreantpos.ui.views.order.modifier;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,7 +49,8 @@ import com.floreantpos.config.TerminalConfig;
 import com.floreantpos.model.MenuItemModifierGroup;
 import com.floreantpos.model.MenuModifier;
 import com.floreantpos.model.ModifierGroup;
-import com.floreantpos.swing.POSToggleButton;
+//???import com.floreantpos.swing.POSToggleButton;
+import com.floreantpos.swing.POSToggleButtonWL; //???
 import com.floreantpos.swing.ScrollableFlowPanel;
 import com.jidesoft.swing.SimpleScrollPane;
 
@@ -63,33 +65,40 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 
 	private ButtonGroup modifierGroupButtonGroup;
 
-	private SimpleScrollPane simpleScrollPane;
-	private ScrollableFlowPanel contentPanel;
+//???	private SimpleScrollPane simpleScrollPane;
+//???	private ScrollableFlowPanel contentPanel;
 
 	public static final String VIEW_NAME = "MODIFIER_GROUP_VIEW"; //$NON-NLS-1$
-
+	
+	
 	/** Creates new form CategoryView */
 	public ModifierGroupView(ModifierSelectionModel modifierSelectionModel) {
 		this.modifierSelectionModel = modifierSelectionModel;
 
-		setLayout(new BorderLayout());
+//???	setLayout(new BorderLayout());
+        setLayout (new FlowLayout (FlowLayout.CENTER));
 		TitledBorder border = new TitledBorder(POSConstants.GROUPS);
 		border.setTitleJustification(TitledBorder.CENTER);
 		setBorder(border);
 
+//???
+/*****************************
 		contentPanel = new ScrollableFlowPanel();
 		simpleScrollPane = new SimpleScrollPane(contentPanel);
 		simpleScrollPane.setBorder(null);
 		simpleScrollPane.setAutoscrolls(false);
 		simpleScrollPane.setScrollOnRollover(false);
 		simpleScrollPane.setVerticalUnitIncrement(TerminalConfig.getTouchScreenButtonHeight());
-		simpleScrollPane.getScrollUpButton().setPreferredSize(new Dimension(100, TerminalConfig.getTouchScreenButtonHeight()));
-		simpleScrollPane.getScrollDownButton().setPreferredSize(new Dimension(100, TerminalConfig.getTouchScreenButtonHeight()));
+		
+		simpleScrollPane.getScrollUpButton ().setPreferredSize(new Dimension(100, TerminalConfig.getTouchScreenButtonHeight()));
+		simpleScrollPane.getScrollDownButton ().setPreferredSize(new Dimension(100, TerminalConfig.getTouchScreenButtonHeight()));
 
 		add(simpleScrollPane);
+*********************************/
+//???
 
 		modifierGroupButtonGroup = new ButtonGroup();
-		setPreferredSize(new Dimension(120, 100));
+//???		setPreferredSize(new Dimension(120, 100));
 
 		init();
 
@@ -110,26 +119,27 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 		});
 
 		for (Iterator<MenuItemModifierGroup> iter = modifierGroups.iterator(); iter.hasNext();) {
-			MenuItemModifierGroup menuItemModifierGroup = iter.next();
+            MenuItemModifierGroup menuItemModifierGroup = iter.next();
 			ModifierGroup menuModifierGroup = menuItemModifierGroup.getModifierGroup();
 			Set<MenuModifier> modifiers = menuModifierGroup.getModifiers();
 			if (modifiers == null || modifiers.size() == 0) {
 				continue;
 			}
-
 			menuModifierGroup.setMenuItemModifierGroup(menuItemModifierGroup);
 
-			contentPanel.add(createItemButton(menuModifierGroup));
+//???       contentPanel.add (createItemButton(menuModifierGroup));
+            AbstractButton button = createItemButton (menuModifierGroup);  //???
+            add (button);      //???
 		}
-		contentPanel.revalidate();
-		contentPanel.repaint();
+//???		contentPanel.revalidate();
+//???		contentPanel.repaint();
 	}
 
 	protected AbstractButton createItemButton(Object item) {
 		ModifierGroup menuModifierGroup = (ModifierGroup) item;
 
 		ModifierGroupButton button = new ModifierGroupButton(menuModifierGroup);
-		button.setPreferredSize(new Dimension(100, 80));
+//???		button.setPreferredSize(new Dimension(100, 80));
 		modifierGroupButtonGroup.add(button);
 
 		return button;
@@ -143,14 +153,17 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 		listenerList.remove(listener);
 	}
 
-	private void fireModifierGroupSelected(ModifierGroup foodModifierGroup) {
+	//???  private
+	public void fireModifierGroupSelected(ModifierGroup foodModifierGroup) {
 		for (ModifierGroupSelectionListener listener : listenerList) {
 			listener.modifierGroupSelected(foodModifierGroup);
 		}
 	}
 
 	public void setSelectedModifierGroup(ModifierGroup modifierGroup) {
-		Component[] components = contentPanel.getContentPane().getComponents();
+//???		Component[] components = contentPanel.getContentPane ().getComponents();
+		Component[] components = getComponents();		
+		
 		if (components != null && components.length > 0) {
 			for (Component component : components) {
 				ModifierGroupButton button = (ModifierGroupButton) component;
@@ -158,7 +171,7 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 					button.setSelected(true);
 					Rectangle bounds = button.getBounds();
 					bounds.height = bounds.height * 2;
-					simpleScrollPane.scrollRectToVisible(bounds);
+		//???			simpleScrollPane.scrollRectToVisible(bounds);
 					fireModifierGroupSelected(button.menuModifierGroup);
 					break;
 				}
@@ -167,7 +180,9 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 	}
 
 	public void selectFirst() {
-		Component[] components = contentPanel.getContentPane().getComponents();
+//???		Component[] components = contentPanel.getContentPane().getComponents();
+		Component[] components = getComponents();		
+		
 		if (components != null && components.length > 0) {
 			ModifierGroupButton button = (ModifierGroupButton) components[0];
 			button.setSelected(true);
@@ -186,8 +201,10 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 	}
 
 	private ModifierGroupButton getNextMandatoryGroup() {
-		Component[] components = contentPanel.getContentPane().getComponents();
-		if (components != null && components.length > 0) {
+//???		Component[] components = contentPanel.getContentPane().getComponents();
+		Component[] components = getComponents();
+
+        if (components != null && components.length > 0) {
 			for (int i = 0; i < components.length; i++) {
 				ModifierGroupButton button = (ModifierGroupButton) components[i];
 				if (button.isSelected() && i < (components.length - 1)) {
@@ -202,13 +219,14 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 		return null;
 	}
 
-	private class ModifierGroupButton extends POSToggleButton implements ActionListener {
+	//??? private 
+	public class ModifierGroupButton extends POSToggleButtonWL implements ActionListener {
 		ModifierGroup menuModifierGroup;
 
 		ModifierGroupButton(ModifierGroup menuModifierGroup) {
 			this.menuModifierGroup = menuModifierGroup;
 			updateButtonText();
-			addActionListener(this);
+//???			addActionListener(this);
 		}
 
 		private void updateButtonText() {
@@ -220,7 +238,7 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 			string = "<html><body><center> "
 					+ menuModifierGroup.getDisplayName()
 					+ "<br/>"
-					+ "<strong><span style='color:white;background-color:orange;margin:0;" + "'>&nbsp; " + menuModifierGroup.getMenuItemModifierGroup().getMinQuantity() + "&nbsp; </span></center></body></html>"; //$NON-NLS-1$ //$NON-NLS-2$ 
+					+ "<strong><span style='color:white;background-color:orange;margin:0;" + "'>&nbsp; " + menuModifierGroup.getMenuItemModifierGroup().getMinQuantity() + 		":" +                     menuModifierGroup.getMenuItemModifierGroup().getMaxQuantity() +						"&nbsp; </span></center></body></html>"; //$NON-NLS-1$ //$NON-NLS-2$ 
 			//			}
 
 			setText(string);
@@ -236,11 +254,15 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 
 	@Override
 	public void componentResized(ComponentEvent e) {
+	//???
+	/**************************************
 		int verticalUnitIncrement = simpleScrollPane.getViewport().getVisibleRect().height - TerminalConfig.getTouchScreenButtonHeight();
 		if (verticalUnitIncrement < TerminalConfig.getTouchScreenButtonHeight()) {
 			verticalUnitIncrement = TerminalConfig.getTouchScreenButtonHeight();
 		}
 		simpleScrollPane.setVerticalUnitIncrement(verticalUnitIncrement);
+		********************************/
+		//???
 	}
 
 	@Override
@@ -254,4 +276,6 @@ public class ModifierGroupView extends JPanel implements ComponentListener {
 	@Override
 	public void componentHidden(ComponentEvent e) {
 	}
+
+	
 }

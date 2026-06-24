@@ -25,12 +25,18 @@ package com.floreantpos.ui.views.order.modifier;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -51,8 +57,10 @@ import com.floreantpos.model.Multiplier;
 import com.floreantpos.model.TicketItem;
 import com.floreantpos.model.TicketItemModifier;
 import com.floreantpos.model.dao.MultiplierDAO;
-import com.floreantpos.swing.POSToggleButton;
+//??? import com.floreantpos.swing.POSToggleButton;
+import com.floreantpos.swing.POSToggleButtonWL; //???
 import com.floreantpos.swing.PosButton;
+import com.floreantpos.swing.PosButtonWL;   //???
 import com.floreantpos.ui.dialog.POSMessageDialog;
 import com.floreantpos.ui.views.order.OrderView;
 import com.floreantpos.ui.views.order.SelectionView;
@@ -60,19 +68,26 @@ import com.floreantpos.util.CurrencyUtil;
 
 import net.miginfocom.swing.MigLayout;
 
+import com.floreantpos.ui.views.order.modifier.ModifierSelectionDialog;
+
+import com.floreantpos.ui.views.order.SelectionViewWL;  //???
+
+
 /**
  * 
  * @author MShahriar
  */
-public class ModifierView extends SelectionView {
+//??? public class ModifierView extends SelectionView {
+ public class ModifierView extends SelectionViewWL {  //???
 	private Vector<ModifierSelectionListener> listenerList = new Vector<ModifierSelectionListener>();
 
 	private ModifierSelectionModel modifierSelectionModel;
 	private ModifierGroup modifierGroup;
 
 	private PosButton btnClear = new PosButton(POSConstants.CLEAR);
-	private PosButton btnDone = new PosButton(POSConstants.GROUP.toUpperCase() + " " + "DONE");
-
+//???	private PosButton btnDone = new PosButton(POSConstants.GROUP.toUpperCase() + " " + "DONE");
+	public PosButton btnDone = new PosButton(POSConstants.GROUP.toUpperCase() + " " + "DONE");
+	
 	private HashMap<String, ModifierButton> buttonMap = new HashMap<String, ModifierButton>();
 
 	private int maxQuantity;
@@ -80,20 +95,35 @@ public class ModifierView extends SelectionView {
 	private Multiplier selectedMultiplier;
 	private MultiplierButton defaultMultiplierButton;
 
-	public ModifierView(ModifierSelectionModel modifierSelectionModel) {
-		super(com.floreantpos.POSConstants.MODIFIERS);
-		this.modifierSelectionModel = modifierSelectionModel;
-		showPrice = OrderView.getInstance().getCurrentTicket().getOrderType().isShowPriceOnButton();
-		addMultiplierButtons();
-		addActionButtons();
+    private ModifierSelectionDialog dialog;  //???
+    private String thisModifierView = "";  //???
+
+//???	public ModifierView(ModifierSelectionModel modifierSelectionModel) 	
+	public ModifierView(ModifierSelectionModel modifierSelectionModel, ModifierSelectionDialog dialog, String view) 
+	{
+        super(com.floreantpos.POSConstants.MODIFIERS);
+        this.dialog =  dialog;      //???
+        this.thisModifierView = view; //???
+        this.modifierSelectionModel = modifierSelectionModel;
+        showPrice = OrderView.getInstance().getCurrentTicket().getOrderType().isShowPriceOnButton();
+		
+        addMultiplierButtons();
+        addActionButtons();
 	}
+
+	
+//???   start
 
 	private void addMultiplierButtons() {
 		JPanel multiplierPanel = new JPanel(new MigLayout("ins 0,fillx,center"));
+		multiplierPanel.setName ("multiplier");
+		multiplierPanel.setVisible (false);
+		
 		List<Multiplier> multiplierList = MultiplierDAO.getInstance().findAll();
 		ButtonGroup group = new ButtonGroup();
 		if (multiplierList != null) {
-			for (Multiplier multiplier : multiplierList) {
+            for (Multiplier multiplier : multiplierList) {
+            //???***  what here for narrower buttons
 				MultiplierButton btnMultiplier = new MultiplierButton(multiplier);
 				if (multiplier.isDefaultMultiplier()) {
 					selectedMultiplier = multiplier;
@@ -106,10 +136,11 @@ public class ModifierView extends SelectionView {
 		}
 		actionButtonPanel.add(multiplierPanel, "span");
 	}
-
+    
 	private void addActionButtons() {
 		actionButtonPanel.add(btnClear);
 		actionButtonPanel.add(btnDone);
+		actionButtonPanel.setVisible (false);
 
 		btnDone.addActionListener(new ActionListener() {
 			@Override
@@ -128,6 +159,14 @@ public class ModifierView extends SelectionView {
 			}
 		});
 	}
+
+//???   end
+
+
+	public void setDialog  (ModifierSelectionDialog dialog)
+	{
+        this.dialog = dialog;
+    }
 
 	public void setModifierGroup(ModifierGroup modifierGroup) {
 		this.modifierGroup = modifierGroup;
@@ -158,10 +197,25 @@ public class ModifierView extends SelectionView {
 				//				}
 				itemList.add(modifier);
 			}
-			Collections.sort(itemList, new Comparator<MenuModifier>() {
+			Collections.sort(itemList, new Comparator<MenuModifier>() 
+			{
 				@Override
-				public int compare(MenuModifier o1, MenuModifier o2) {
-					return o1.getSortOrder() - o2.getSortOrder();
+				public int compare(MenuModifier o1, MenuModifier o2) 
+				{
+	//???			return o1.getSortOrder() - o2.getSortOrder();
+//???               
+                    int orderCompare = Integer.compare (o1.getSortOrder(), o2.getSortOrder());
+                    if(orderCompare != 0) 
+                    {
+                        return orderCompare;
+                    }
+                    
+                    String n1 = o1.getName();
+                    String n2 = o2.getName();
+                    
+                    int nameCompare = n1.compareTo(n2);
+                    return nameCompare;
+//???                    
 				}
 			});
 			setItems(itemList);
@@ -192,6 +246,8 @@ public class ModifierView extends SelectionView {
 	protected AbstractButton createItemButton(Object item) {
 		MenuModifier modifier = (MenuModifier) item;
 		ModifierButton modifierButton = new ModifierButton(modifier);
+		modifierButton.setName ("modifierButton - "
+		+ modifier.getModifierGroup().getName());
 		String key = modifier.getId() + "_" + modifier.getModifierGroup().getId(); //$NON-NLS-1$
 		buttonMap.put(key, modifierButton);
 
@@ -205,6 +261,7 @@ public class ModifierView extends SelectionView {
 	public void removeModifierSelectionListener(ModifierSelectionListener listener) {
 		listenerList.remove(listener);
 	}
+
 
 	public void updateView() {
 		JPanel activePanel = getActivePanel();
@@ -234,16 +291,24 @@ public class ModifierView extends SelectionView {
 			}
 		}
 
+		//???
+		/**************
 		if (ModifierSelectionDialog.isRequiredModifiersAdded(ticketItem, modifierGroup.getMenuItemModifierGroup())) {
 			btnDone.setBackground(Color.green);
 		}
 		else {
 			btnDone.setBackground(UIManager.getColor("Control"));
-		}
+        }
+        **************/
+
+        dialog.checkForAllModifiers ();
 	}
 
-	private class ModifierButton extends PosButton implements ActionListener {
+	
+//??? 	private class ModifierButton extends PosButtonWL implements ActionListener {	
+	private class ModifierButton extends PosButtonWL implements ActionListener {
 		private MenuModifier menuModifier;
+		// private ModifierSelectionDialog passed in as a parameter
 
 		public ModifierButton(MenuModifier modifier) {
 			this.menuModifier = modifier;
@@ -264,15 +329,37 @@ public class ModifierView extends SelectionView {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+            if (dialog.getActiveModifierView() != thisModifierView)
+            {
+                //???
+                dialog.setModifierGroupView (thisModifierView);
+                dialog.setActiveModifierView (thisModifierView);
+            }
+            
 			for (ModifierSelectionListener listener : ModifierView.this.listenerList) {
-				listener.modifierSelected(menuModifier, selectedMultiplier);
+                //!!! do something here ??
+                listener.modifierSelected(menuModifier, selectedMultiplier);
 			}
 			defaultMultiplierButton.setSelected(true);
 			selectedMultiplier = defaultMultiplierButton.getMultiplier();
+			dialog.resetMultipliers();
 		}
 	}
 
-	private class MultiplierButton extends POSToggleButton implements ActionListener {
+	//???  start
+	public void setMultiplier (Multiplier multiplier)
+	{
+        selectedMultiplier = multiplier;
+    }
+    
+    public void resetMultiplier ()
+    {
+        defaultMultiplierButton.setSelected(true);
+        selectedMultiplier = defaultMultiplierButton.getMultiplier();
+    }
+	//???  end
+	
+	private class MultiplierButton extends POSToggleButtonWL implements ActionListener {
 		private Multiplier multiplier;
 
 		public MultiplierButton(Multiplier multiplier) {
@@ -310,4 +397,6 @@ public class ModifierView extends SelectionView {
 
 		}
 	}
+
+ 
 }
