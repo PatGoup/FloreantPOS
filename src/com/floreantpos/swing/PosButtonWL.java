@@ -35,7 +35,7 @@ import com.floreantpos.actions.PosAction;
 
 public class PosButtonWL extends JButton {
 	public static Border border = new LineBorder(Color.BLACK, 1);
-	static Insets margin = new Insets(1, 5, 1, 5);
+	static Insets margin = new Insets(5, 5, 5, 5);
 
 	static POSButtonUI ui = new POSButtonUI();
 
@@ -43,7 +43,8 @@ public class PosButtonWL extends JButton {
 		UIManager.put("PosButtonUI", "com.floreantpos.swing.POSButtonUI"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	public PosButtonWL() {
+	public PosButtonWL() 
+	{
 		this(""); //$NON-NLS-1$
 	}
 

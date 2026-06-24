@@ -18,6 +18,7 @@
 package com.floreantpos.swing;
 
 import java.awt.Dimension;
+import java.awt.Insets;      //???
 
 import javax.swing.JToggleButton;
 import javax.swing.UIManager;
@@ -28,23 +29,25 @@ import com.floreantpos.POSConstants;
 public class POSToggleButtonWL extends JToggleButton {
 	//public static Border border = new LineBorder(Color.BLACK, 1);
 	//static Insets margin = new Insets(0, 0, 0, 0);
-
 	static {
 		UIManager.put("POSToggleButtonUI", "com.floreantpos.swing.POSToggleButtonUI"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	
-	public POSToggleButtonWL() {
+	public POSToggleButtonWL() 
+	{
 		this(null);
 	}
 
-	public POSToggleButtonWL(String text) {
+	public POSToggleButtonWL(String text) 
+	{
 		super(text);
 
 		//setFont(UIConfig.getButtonFont());
 		setFocusPainted(false);
 		setFocusable(false);
-		//setMargin(margin);
+		//??? setMargin (margin);
+		setMargin (new Insets (5,5,5,5));
 	}
 
 	@Override
