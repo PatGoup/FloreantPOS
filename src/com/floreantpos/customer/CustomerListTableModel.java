@@ -26,7 +26,8 @@ import com.floreantpos.swing.PaginatedTableModel;
 public class CustomerListTableModel extends PaginatedTableModel {
 
 	private final static String[] columns = {
-			Messages.getString("CustomerListTableModel.1"), Messages.getString("CustomerListTableModel.7"), Messages.getString("CustomerListTableModel.0"), Messages.getString("CustomerListTableModel.3"), Messages.getString("CustomerListTableModel.10"), Messages.getString("CustomerListTableModel.4"), Messages.getString("CustomerListTableModel.5") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+        Messages.getString("CustomerListTableModel.1"), Messages.getString("CustomerListTableModel.7"), Messages.getString("CustomerListTableModel.11"),			Messages.getString("CustomerListTableModel.0"), Messages.getString("CustomerListTableModel.3"), Messages.getString("CustomerListTableModel.10"), Messages.getString("CustomerListTableModel.4"), Messages.getString("CustomerListTableModel.5"), Messages.getString("CustomerListTableModel.8") }; 
+			//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 
 	public CustomerListTableModel() {
 		super(columns);
@@ -46,21 +47,23 @@ public class CustomerListTableModel extends PaginatedTableModel {
 				return customer.getFirstName();
 			case 1:
 				return customer.getLastName();
-
 			case 2:
+				return customer.getHomePhoneNo();
+			case 3:
 				return customer.getMobileNo();
 
-			case 3:
+			case 4:
 				return customer.getAddress();
 
-			case 4:
+			case 5:
 				return customer.getZipCode();
 
-			case 5:
-				return customer.getCity();
 			case 6:
+				return customer.getCity();
+			case 7:
 				return customer.getState();
-
+			case 8:
+				return customer.getAutoId();
 		}
 		return null;
 	}
