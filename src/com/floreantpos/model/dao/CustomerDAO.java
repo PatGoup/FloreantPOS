@@ -31,6 +31,7 @@ import org.hibernate.criterion.Restrictions;
 import com.floreantpos.model.Customer;
 import com.floreantpos.swing.PaginatedTableModel;
 
+
 public class CustomerDAO extends BaseCustomerDAO {
 
 	/**
@@ -41,7 +42,7 @@ public class CustomerDAO extends BaseCustomerDAO {
 
 	@Override
 	public Order getDefaultOrder() {
-		return Order.asc(Customer.PROP_AUTO_ID);
+		return Order.asc (Customer.PROP_AUTO_ID);
 	}
 
 	public int getNumberOfCustomers() {
@@ -148,8 +149,47 @@ public class CustomerDAO extends BaseCustomerDAO {
 		}
 	}
 
-	public List<Customer> findBy(String mobile, String loyalty, String name) {
+	
+
+	public void findBookingCustomer (String name, String homePh, String mobile, PaginatedTableModel tableModel) {
 		Session session = null;
+
+		try {
+			session = getSession();
+			Criteria criteria = session.createCriteria(getReferenceClass());
+			Disjunction disjunction = Restrictions.disjunction();
+
+			if (StringUtils.isNotEmpty(mobile))
+				disjunction.add(Restrictions.ilike(Customer.PROP_MOBILE_NO, "%" + mobile + "%")); //$NON-NLS-1$ //$NON-NLS-2$
+
+			if (StringUtils.isNotEmpty(homePh))
+				disjunction.add(Restrictions.ilike(Customer.PROP_HOME_PHONE_NO, "%" + homePh + "%")); //$NON-NLS-1$ //$NON-NLS-2$
+
+			if (StringUtils.isNotEmpty(name))
+				disjunction.add(Restrictions.ilike(Customer.PROP_NAME, "%" + name + "%")); //$NON-NLS-1$ //$NON-NLS-2$
+
+			criteria.add(disjunction);
+
+			criteria.setFirstResult(tableModel.getCurrentRowIndex());
+			criteria.setMaxResults(tableModel.getPageSize());
+			tableModel.setRows(criteria.list());
+
+		} finally {
+			if (session != null) {
+				closeSession(session);
+			}
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	public List<Customer> findBy(String mobile, String loyalty, String name) {
+ 		Session session = null;
 
 		try {
 			session = getSession();
@@ -270,8 +310,11 @@ public class CustomerDAO extends BaseCustomerDAO {
 		try {
 			session = createNewSession();
 			criteria = session.createCriteria(getReferenceClass());
-			criteria.addOrder(getDefaultOrder());
-			criteria.setFirstResult(tableModel.getCurrentRowIndex());
+        
+            //???  criteria.addOrder (getDefaultOrder());
+			criteria.addOrder (Order.asc ( Customer.PROP_LAST_NAME))			.addOrder (Order.asc ( Customer.PROP_FIRST_NAME))			.addOrder (Order.asc ( Customer.PROP_NAME))			.addOrder (Order.asc ( Customer.PROP_AUTO_ID));
+            
+            criteria.setFirstResult(tableModel.getCurrentRowIndex());
 			criteria.setMaxResults(tableModel.getPageSize());
 			tableModel.setRows(criteria.list());
 			return;

@@ -44,6 +44,14 @@ import com.floreantpos.ui.views.TableMapView;
 import com.floreantpos.ui.views.payment.SettleTicketDialog;
 import com.floreantpos.util.TicketAlreadyExistsException;
 
+//???  start
+import com.floreantpos.ui.dialog.POSMessageDialog;
+import com.floreantpos.ui.views.BookingView;
+import com.floreantpos.Messages;
+
+//???  end
+
+
 public class RootView extends com.floreantpos.swing.TransparentPanel {
 	private CardLayout cards = new CardLayout();
 
@@ -170,55 +178,81 @@ public class RootView extends com.floreantpos.swing.TransparentPanel {
 
 		String defaultViewName = TerminalConfig.getDefaultView();
 
-		if (defaultViewName.equals(SwitchboardOtherFunctionsView.VIEW_NAME)) { //$NON-NLS-1$
-			setAndShowHomeScreen(SwitchboardOtherFunctionsView.getInstance());
+		if (defaultViewName.equals(SwitchboardOtherFunctionsView.VIEW_NAME)) 
+		{ //$NON-NLS-1$
+            setAndShowHomeScreen(SwitchboardOtherFunctionsView.getInstance());
 		}
-		else if (defaultViewName.equals(KitchenDisplayView.VIEW_NAME)) {
-			if (!hasView(KitchenDisplayView.getInstance())) {
+		else if (defaultViewName.equals(KitchenDisplayView.VIEW_NAME)) 
+		{
+			if (!hasView(KitchenDisplayView.getInstance())) 
+			{
 				addView(KitchenDisplayView.getInstance());
 			}
 
 			headerPanel.setVisible(false);
 			setAndShowHomeScreen(KitchenDisplayView.getInstance());
 		}
-		else if (defaultViewName.equals(SwitchboardView.VIEW_NAME)) {
-			if (loginScreen.isBackOfficeLogin()) {
+		else if (defaultViewName.equals(SwitchboardView.VIEW_NAME)) 
+		{
+			if (loginScreen.isBackOfficeLogin()) 
+			{
 				showBackOffice();
 			}
-			setAndShowHomeScreen(SwitchboardView.getInstance());
+            setAndShowHomeScreen(SwitchboardView.getInstance());
 		}
-		else {
+		else 
+		{
 			OrderType orderType = OrderTypeDAO.getInstance().findByName(defaultViewName);
 
-			if (orderType.isShowTableSelection()) {
-				TableMapView tableMapView = TableMapView.getInstance(orderType);
-				tableMapView.updateView();
-				setAndShowHomeScreen(tableMapView);
-			}
-			else if (orderType.isRequiredCustomerData()) {
-				OrderServiceExtension orderServicePlugin = (OrderServiceExtension) ExtensionManager.getPlugin(OrderServiceExtension.class);
-				if (orderServicePlugin != null) {
-					if (orderType.isDelivery()) {
-						setAndShowHomeScreen(orderServicePlugin.getDeliveryDispatchView(orderType));
-					}
-					else {
-						CustomerView customerView = CustomerView.getInstance(orderType);
-						customerView.updateView();
-						setAndShowHomeScreen(customerView);
-					}
-				}
-				else {
-					CustomerView customerView = CustomerView.getInstance(orderType);
-					customerView.updateView();
-					setAndShowHomeScreen(customerView);
-				}
-			}
-			else {
-				try {
-					homeView = OrderView.getInstance();
-					OrderServiceFactory.getOrderService().createNewTicket(orderType, null, null);
+			if (defaultViewName .equals (Messages.getString ("Booking.0"))) 
+            {
+                BookingView bookingView = BookingView.getInstance (orderType);
+                bookingView.updateView ();
+                setAndShowHomeScreen(bookingView);
+            }					
+            else 
+            {
+			
+			
+                if (orderType.isShowTableSelection()) 
+                {
+                    TableMapView tableMapView = TableMapView.getInstance(orderType);
+                    tableMapView.updateView();
+                    setAndShowHomeScreen(tableMapView);
+                }
+                else if (orderType.isRequiredCustomerData()) 
+                {
+                    OrderServiceExtension orderServicePlugin = (OrderServiceExtension) ExtensionManager.getPlugin(OrderServiceExtension.class);
+                    if (orderServicePlugin != null) 
+                    {
+                        if (orderType.isDelivery()) 
+                        {
+                            setAndShowHomeScreen(orderServicePlugin.getDeliveryDispatchView(orderType));
+                        }
+                        else 
+                        {
+                            CustomerView customerView = CustomerView.getInstance(orderType);
+                            customerView.updateView();
+                            setAndShowHomeScreen(customerView);
+                        }
+                    }
+                    else 
+                    {
+                        CustomerView customerView = CustomerView.getInstance(orderType);
+                        customerView.updateView();
+                        setAndShowHomeScreen(customerView);
+                    }
+                }
+                else 
+                {
+                    try 
+                    {
+                        homeView = OrderView.getInstance();
+                        OrderServiceFactory.getOrderService().createNewTicket(orderType, null, null);
 
-				} catch (TicketAlreadyExistsException e1) {
+                    } catch (TicketAlreadyExistsException e1) 
+                    {
+                    }
 				}
 			}
 		}
